@@ -1,0 +1,102 @@
+import os, time 
+def prettyPrint() :
+  for row in twoDList :
+    for item in row :
+      print(f"{item: ^10}",end=" | ")
+    print()
+  print()
+def take(remove) : 
+  for row in twoDList :
+      for item in row :
+        if item == remove :
+          twoDList.remove(row)
+      print()
+  print()
+def give() :
+  task = ""
+  time = ""
+  priority = ""    
+  task = input("What do you want to add to your list? ").strip().title()
+  time = input("When does it have to be done? ").strip().title()
+  priority = input("what is this tasks priority(high, medium, low)? ").strip().title()
+  row = (task,time,priority)
+  twoDList.append(row)
+def priorityPrint(type) :
+  for row in twoDList:
+    if row[2] == type :
+      for item in row:
+        print(f"{item: ^10}",end=" | ")
+      print()
+title = "TO-DO List"
+print(f"\033[34m{title: ^95}\033[0m")
+print()
+twoDList = []
+while True:
+  text = "Would you like to add, view, remove, or edit your To-Do List?"
+  step = input(f"\033[31m{text}\033[0m ").lower().strip()
+  print()
+  print()
+  if step == "add" :
+    print()
+    give()
+    os.system("clear")
+    continue
+  elif step == "view" :
+    full = int(input("would you like to view a single priority or the full list (1 or 2)? "))
+    if full == 1 :
+      type = input("Would you like to view your high, medium, or low priorities? ").strip().title()
+      if type == "High" :
+        priorityPrint(type)
+      elif type == "Medium" :
+        priorityPrint(type)
+      elif type == "Low" :
+        priorityPrint(type)
+      else :
+        print()
+        print()
+        print("Error type High, Medium, or Low")
+        print()
+        time.sleep(2)
+        os.sytem("clear")
+        continue
+      print()
+    elif full == 2 :
+      print()
+      prettyPrint()
+      print()
+      cont = input("Do you want to keep editing? (yes/no)").strip().lower()
+      if cont == "yes" :
+        os.system("clear")
+        continue 
+      elif cont == "no" :
+        os.system("clear")
+        break 
+    else :
+      print()
+      print()
+      print("Error just type 1 or 2 ")
+      print()
+      time.sleep(2)
+      os.system("clear")
+  elif step == "remove" :
+    print()
+    remove = input("Which task would you like to remove? ").strip().title()
+    take(remove)
+    os.system("clear")
+    continue
+  elif step == "edit" :
+    print()
+    remove = input("What task would you like to edit? ").strip().title()
+    take(remove)
+    give()
+    print()
+    print()
+    os.system("clear")
+    continue
+  else :
+    print("Please only type in one word responses.(add, view, remove, edit)")
+    time.sleep(2)
+    os.system("clear")
+    continue 
+
+prettyPrint()
